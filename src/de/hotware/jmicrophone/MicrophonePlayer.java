@@ -14,8 +14,8 @@ import javax.sound.sampled.Mixer;
 
 import de.hotware.hotsound.audio.data.BasicPlaybackAudioDevice;
 import de.hotware.hotsound.audio.data.RecordAudio;
-import de.hotware.hotsound.audio.player.IMusicPlayer;
-import de.hotware.hotsound.audio.player.ISong;
+import de.hotware.hotsound.audio.player.MusicPlayer;
+import de.hotware.hotsound.audio.player.Song;
 import de.hotware.hotsound.audio.player.MusicPlayerException;
 import de.hotware.hotsound.audio.player.RecordSong;
 import de.hotware.hotsound.audio.player.StreamMusicPlayer;
@@ -57,7 +57,7 @@ public class MicrophonePlayer implements Runnable {
 					break;
 				}
 				case "play": {
-					IMusicPlayer player = new StreamMusicPlayer();
+					MusicPlayer player = new StreamMusicPlayer();
 					Mixer mixer = mixers.get(Integer.valueOf(pArgs[1]));
 					AudioFormat from = formatsMapped.get(mixer)[Integer
 							.valueOf(pArgs[2])];
@@ -76,7 +76,7 @@ public class MicrophonePlayer implements Runnable {
 							from.getFrameSize(),
 							frameRate,
 							from.isBigEndian());
-					ISong song = new RecordSong(mixer, format, 128000);
+					Song song = new RecordSong(mixer, format, 128000);
 					player.insert(song, new BasicPlaybackAudioDevice(null, 128000));
 					player.start();
 					break;
